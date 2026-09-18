@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +27,7 @@ import java.util.Locale
 @Composable
 fun GameOverDialog(
     state: GameState,
+    onReviveClick: () -> Unit,
     onRestartClick: () -> Unit,
     onMenuClick: () -> Unit
 ) {
@@ -47,14 +50,14 @@ fun GameOverDialog(
                     )
                 )
                 .border(2.dp, borderColor, RoundedCornerShape(20.dp))
-                .padding(22.dp),
+                .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = title,
                 color = titleColor,
                 fontWeight = FontWeight.Black,
-                fontSize = 18.sp,
+                fontSize = 17.sp,
                 textAlign = TextAlign.Center
             )
 
@@ -63,30 +66,16 @@ fun GameOverDialog(
             // Stat Cards Grid
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 val mins = (state.totalTimeSurvived / 60).toInt()
                 val secs = (state.totalTimeSurvived % 60).toInt()
                 val timeStr = String.format(Locale.US, "%02d:%02d", mins, secs)
 
-                StatBox(
-                    label = "Thời gian",
-                    value = timeStr,
-                    color = NeonCyan,
-                    modifier = Modifier.weight(1f)
-                )
-                StatBox(
-                    label = "Diệt Quái",
-                    value = "${state.killCount}",
-                    color = Color(0xFFFF8FA3),
-                    modifier = Modifier.weight(1f)
-                )
-                StatBox(
-                    label = "Cấp Độ",
-                    value = "Lv.${state.playerLevel}",
-                    color = PixelGold,
-                    modifier = Modifier.weight(1f)
-                )
+                StatBox(label = "Thời gian", value = timeStr, color = NeonCyan, modifier = Modifier.weight(1f))
+                StatBox(label = "Diệt Quái", value = "${state.killCount}", color = Color(0xFFFF8FA3), modifier = Modifier.weight(1f))
+                StatBox(label = "Cấp Độ", value = "Lv.${state.playerLevel}", color = PixelGold, modifier = Modifier.weight(1f))
+                StatBox(label = "Vàng", value = "+${state.goldCollectedInRun} 💰", color = GemGold, modifier = Modifier.weight(1f))
             }
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -98,36 +87,59 @@ fun GameOverDialog(
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color(0xFF131A29))
                     .border(1.dp, PixelGold.copy(alpha = 0.5f), RoundedCornerShape(10.dp))
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 6.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = "Tổng Điểm: ${state.score} PTS",
                     color = PixelGold,
                     fontWeight = FontWeight.Black,
-                    fontSize = 16.sp
+                    fontSize = 15.sp
                 )
             }
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
-            // Action Buttons
+            // Revive button (if available and not victory)
+            if (!isVic && state.canRevive) {
+                Button(
+                    onClick = onReviveClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(46.dp)
+                        .testTag("revive_button"),
+                    colors = ButtonDefaults.buttonColors(containerColor = PixelGold),
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Shield, contentDescription = null, tint = Color.Black)
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = "HỒI SINH (KHIÊN HÀO QUANG)",
+                        color = Color.Black,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 12.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            // Play Again
             Button(
                 onClick = onRestartClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp)
+                    .height(46.dp)
                     .testTag("restart_button"),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (isVic) NeonCyan else HealthRed
                 ),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text(
                     text = "CHƠI LẠI TRẬN MỚI",
                     color = Color.Black,
                     fontWeight = FontWeight.Black,
-                    fontSize = 14.sp
+                    fontSize = 13.sp
                 )
             }
 
@@ -137,16 +149,16 @@ fun GameOverDialog(
                 onClick = onMenuClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(44.dp)
+                    .height(42.dp)
                     .testTag("main_menu_button"),
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF64748B)),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Text(
                     text = "Về Trang Chủ & Sử Thi",
                     color = Color(0xFFCBD5E1),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 13.sp
+                    fontSize = 12.sp
                 )
             }
         }
@@ -165,13 +177,13 @@ private fun StatBox(
             .clip(RoundedCornerShape(8.dp))
             .background(Color(0xFF101624))
             .border(1.dp, color.copy(alpha = 0.4f), RoundedCornerShape(8.dp))
-            .padding(vertical = 8.dp, horizontal = 4.dp),
+            .padding(vertical = 6.dp, horizontal = 2.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = label, color = Color(0xFF94A3B8), fontSize = 10.sp)
+            Text(text = label, color = Color(0xFF94A3B8), fontSize = 9.sp)
             Spacer(modifier = Modifier.height(2.dp))
-            Text(text = value, color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            Text(text = value, color = color, fontWeight = FontWeight.Bold, fontSize = 12.sp)
         }
     }
 }
