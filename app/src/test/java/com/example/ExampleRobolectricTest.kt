@@ -222,4 +222,21 @@ class ExampleRobolectricTest {
     assertTrue(PlaytestTelemetryData.weaponTiers.size >= 8)
     assertTrue(PlaytestTelemetryData.simulatedReviews.size >= 6)
   }
+
+  @Test
+  fun `test bgm track definitions and synth switching`() {
+    val synth = SoundFxSynth().apply { isMuted = true; isBgmMuted = true }
+    assertEquals(com.example.game.audio.BgmTrack.MENU, synth.currentTrack)
+    synth.setBgmTrack(com.example.game.audio.BgmTrack.FOREST)
+    assertEquals(com.example.game.audio.BgmTrack.FOREST, synth.currentTrack)
+    assertEquals(8, com.example.game.audio.BgmTrack.values().size)
+  }
+
+  @Test
+  fun `test skill id vietnamese titles`() {
+    assertEquals("Sét Chuỗi", SkillId.CHAIN_LIGHTNING.vietnameseTitle)
+    assertEquals("Vòng Lửa", SkillId.FIRE_ORBIT.vietnameseTitle)
+    assertEquals("Rìu Xoay", SkillId.SPINNING_AXE.vietnameseTitle)
+    assertEquals("Đầm Nước Thánh", SkillId.HOLY_PUDDLE.vietnameseTitle)
+  }
 }

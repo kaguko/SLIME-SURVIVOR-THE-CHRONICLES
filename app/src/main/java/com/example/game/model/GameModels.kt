@@ -134,17 +134,17 @@ data class BossRootHazard(
     val damage: Float = 25f
 )
 
-enum class SkillId {
-    CHAIN_LIGHTNING,
-    FIRE_ORBIT,
-    SPINNING_AXE,
-    HOLY_PUDDLE,
-    SPEED_BOOTS,
-    MAGNET_RING,
-    MAX_HP_BOOST,
-    REGENERATION,
-    THUNDER_WRATH,
-    SOLAR_SUPERNOVA
+enum class SkillId(val vietnameseTitle: String) {
+    CHAIN_LIGHTNING("Sét Chuỗi"),
+    FIRE_ORBIT("Vòng Lửa"),
+    SPINNING_AXE("Rìu Xoay"),
+    HOLY_PUDDLE("Đầm Nước Thánh"),
+    SPEED_BOOTS("Giày Tốc Độ"),
+    MAGNET_RING("Nhẫn Nam Châm"),
+    MAX_HP_BOOST("Tăng HP Tối Đa"),
+    REGENERATION("Hồi Máu"),
+    THUNDER_WRATH("Nộ Lôi Thần"),
+    SOLAR_SUPERNOVA("Siêu Tân Tinh")
 }
 
 data class SkillCardOption(
