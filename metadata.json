@@ -1,0 +1,7 @@
+{
+  "name": "Slime Survivor",
+  "description": "2D Roguelike Survivor action game featuring Knight Slime fighting hordes in an enchanted neon forest",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

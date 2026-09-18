@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Neon outer aura -->
+    <path
+        android:fillColor="#00E5FF"
+        android:fillAlpha="0.35"
+        android:pathData="M54,34 C40,34 32,46 32,60 C32,73 40,78 54,78 C68,78 76,73 76,60 C76,46 68,34 54,34 Z" />
+    
+    <!-- Slime Body (Juicy Blue) -->
+    <path
+        android:fillColor="#00B4D8"
+        android:pathData="M54,38 C42,38 35,48 35,61 C35,72 43,76 54,76 C65,76 73,72 73,61 C73,48 66,38 54,38 Z" />
+    <path
+        android:fillColor="#90E0EF"
+        android:pathData="M54,40 C44,40 38,49 38,59 C38,68 45,72 54,72 C63,72 70,68 70,59 C70,49 64,40 54,40 Z" />
+    
+    <!-- Highlights -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.6"
+        android:pathData="M44,44 C42,44 40,46 40,50 C40,52 42,54 44,54 C46,54 48,52 48,50 C48,46 46,44 44,44 Z" />
+    
+    <!-- Big cute round eyes -->
+    <path
+        android:fillColor="#0B132B"
+        android:pathData="M46,56 A3.5,4.5 0 1,1 46,65 A3.5,4.5 0 1,1 46,56 Z" />
+    <path
+        android:fillColor="#0B132B"
+        android:pathData="M62,56 A3.5,4.5 0 1,1 62,65 A3.5,4.5 0 1,1 62,56 Z" />
+    <!-- Eye light reflection dots -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45,58 A1.2,1.2 0 1,1 45,60.4 A1.2,1.2 0 1,1 45,58 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M61,58 A1.2,1.2 0 1,1 61,60.4 A1.2,1.2 0 1,1 61,58 Z" />
+    
+    <!-- Cute Knight Steel Helmet (tilted) -->
+    <!-- Helmet dome -->
+    <path
+        android:fillColor="#6C757D"
+        android:pathData="M43,30 L66,33 L64,43 L40,40 Z" />
+    <path
+        android:fillColor="#ADB5BD"
+        android:pathData="M45,32 L64,35 L62,41 L43,38 Z" />
+    <!-- Helmet crest/plume -->
+    <path
+        android:fillColor="#FFD166"
+        android:pathData="M52,24 L56,25 L54,32 L50,31 Z" />
+    <path
+        android:fillColor="#EF476F"
+        android:pathData="M50,21 C53,19 57,20 59,24 L54,26 Z" />
+    <!-- Visor slit -->
+    <path
+        android:fillColor="#212529"
+        android:pathData="M43,37 L63,40 L62,42 L42,39 Z" />
+
+</vector>

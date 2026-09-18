@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Slime Survivor</string>
+    <string name="game_title">SLIME SURVIVOR</string>
+    <string name="game_subtitle">The Chronicles</string>
+    <string name="play_game">Start Run</string>
+    <string name="game_over">Defeated</string>
+    <string name="victory">Victory!</string>
+    <string name="time_survived">Time Survived</string>
+    <string name="level_reached">Level Reached</string>
+    <string name="enemies_defeated">Enemies Defeated</string>
+    <string name="select_upgrade">Choose Your Blessing</string>
+    <string name="ai_coach">AI Sage Advice</string>
+    <string name="ask_sage">Consult the Forest Spirit</string>
+</resources>
