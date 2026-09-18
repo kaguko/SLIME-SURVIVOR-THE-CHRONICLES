@@ -14,10 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.example.ui.AppScreen
 import com.example.ui.GameViewModel
-import com.example.ui.screens.GameScreen
-import com.example.ui.screens.LeaderboardScreen
-import com.example.ui.screens.MainMenuScreen
-import com.example.ui.screens.SageSanctuaryScreen
+import com.example.ui.screens.*
 import com.example.ui.theme.ForestNightDark
 import com.example.ui.theme.MyApplicationTheme
 
@@ -48,8 +45,17 @@ fun SlimeSurvivorApp(viewModel: GameViewModel) {
         when (screen) {
             AppScreen.MAIN_MENU -> MainMenuScreen(viewModel = viewModel)
             AppScreen.PLAYING -> GameScreen(viewModel = viewModel)
+            AppScreen.STAGE_SELECT -> StageSelectScreen(viewModel = viewModel)
+            AppScreen.HERO_SELECT -> HeroSelectScreen(viewModel = viewModel)
+            AppScreen.META_SHOP -> MetaShopScreen(viewModel = viewModel)
+            AppScreen.STORE_MONETIZATION -> StoreMonetizationScreen(viewModel = viewModel)
             AppScreen.LEADERBOARD -> LeaderboardScreen(viewModel = viewModel)
+            AppScreen.ACHIEVEMENTS -> AchievementScreen(viewModel = viewModel)
             AppScreen.SAGE_SANCTUARY -> SageSanctuaryScreen(viewModel = viewModel)
+            AppScreen.SKIN_STUDIO -> SkinStudioScreen(viewModel = viewModel)
+            AppScreen.PRIVACY_POLICY -> PrivacyPolicyScreen(viewModel = viewModel)
+            AppScreen.SETTINGS -> SettingsAndAccessibilityScreen(viewModel = viewModel)
+            AppScreen.PLAYTEST_HUB -> PlaytestHubScreen(viewModel = viewModel)
         }
     }
 }

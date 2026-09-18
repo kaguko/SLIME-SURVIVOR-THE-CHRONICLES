@@ -5,14 +5,14 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "run_records")
 data class RunRecordEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val timestamp: Long = System.currentTimeMillis(),
     val survivalSeconds: Int,
     val kills: Int,
     val levelReached: Int,
     val isVictory: Boolean,
-    val selectedSkills: String, // comma separated or descriptions
+    val selectedSkills: String,
     val score: Int,
-    val chronicleStory: String? = null
+    val chronicleStory: String? = null,
+    val stageId: String = "forest"
 )

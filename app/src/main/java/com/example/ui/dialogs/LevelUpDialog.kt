@@ -1,9 +1,5 @@
 package com.example.ui.dialogs
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -55,14 +51,14 @@ fun LevelUpDialog(
                 text = "⚡ THĂNG CẤP! (LEVEL UP) ⚡",
                 color = PixelGold,
                 fontWeight = FontWeight.Black,
-                fontSize = 20.sp,
+                fontSize = 19.sp,
                 letterSpacing = 1.sp
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "Chọn 1 trong 3 phước lành để cường hóa Slime Hiệp Sĩ:",
+                text = "Chọn 1 trong các phước lành để cường hóa Slime Hiệp Sĩ:",
                 color = Color(0xFFE2E8F0),
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center
@@ -90,11 +86,13 @@ private fun SkillCardItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val borderColor = if (card.isEvolution) PixelGold else if (card.isNew) NeonCyan else CardWoodBorder
+
     Card(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .border(1.5.dp, if (card.isNew) NeonCyan else CardWoodBorder, RoundedCornerShape(12.dp)),
+            .border(1.5.dp, borderColor, RoundedCornerShape(12.dp)),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = CardWoodBg
@@ -107,13 +105,12 @@ private fun SkillCardItem(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Icon box
             Box(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(Color(0xFF15100B))
-                    .border(1.dp, PixelGold, RoundedCornerShape(8.dp)),
+                    .border(1.dp, if (card.isEvolution) PixelGold else NeonCyan, RoundedCornerShape(8.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 val iconEmoji = when (card.skillId) {
@@ -125,6 +122,8 @@ private fun SkillCardItem(
                     SkillId.MAGNET_RING -> "🧲"
                     SkillId.MAX_HP_BOOST -> "🛡️"
                     SkillId.REGENERATION -> "💖"
+                    SkillId.THUNDER_WRATH -> "🌩️"
+                    SkillId.SOLAR_SUPERNOVA -> "☀️"
                 }
                 Text(text = iconEmoji, fontSize = 24.sp)
             }
@@ -139,14 +138,13 @@ private fun SkillCardItem(
                 ) {
                     Text(
                         text = card.vietnameseTitle,
-                        color = PixelGold,
+                        color = if (card.isEvolution) PixelGold else PixelGold,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 15.sp
+                        fontSize = 14.sp
                     )
 
-                    // Level Badge
-                    val badgeText = if (card.isNew) "MỚI" else "Lv.${card.targetLevel}"
-                    val badgeColor = if (card.isNew) NeonCyan else GemGold
+                    val badgeText = if (card.isEvolution) "TIẾN HÓA" else if (card.isNew) "MỚI" else "Lv.${card.targetLevel}"
+                    val badgeColor = if (card.isEvolution) PixelGold else if (card.isNew) NeonCyan else GemGold
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(4.dp))
