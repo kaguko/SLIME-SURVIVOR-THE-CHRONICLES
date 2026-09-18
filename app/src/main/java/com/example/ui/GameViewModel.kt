@@ -85,6 +85,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         observeAchievements()
         observeSavedRun()
         observePlaytestFeedback()
+        soundFx.startBgm(com.example.game.audio.BgmTrack.MENU)
     }
 
     private fun observeProfile() {
@@ -327,7 +328,16 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     fun navigateTo(screen: AppScreen) {
         soundFx.playButtonClick()
+        if (screen == AppScreen.MAIN_MENU && !_uiState.value.bgmMuted) {
+            soundFx.setBgmTrack(com.example.game.audio.BgmTrack.MENU)
+        }
         _uiState.update { it.copy(currentScreen = screen) }
+    }
+
+    fun switchBgmTrack(track: com.example.game.audio.BgmTrack) {
+        soundFx.playButtonClick()
+        soundFx.setBgmTrack(track)
+        showToast("🎵 Nhạc nền: ${track.vietnameseTitle} (${track.bpm} BPM)")
     }
 
     fun selectStage(stage: GameStage) {

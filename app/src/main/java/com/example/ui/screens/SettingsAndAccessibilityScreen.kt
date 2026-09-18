@@ -116,6 +116,74 @@ fun SettingsAndAccessibilityScreen(viewModel: GameViewModel) {
             ) {
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("🎵", fontSize = 20.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            "Âm Thanh & Nhạc Nền (Audio & BGM)",
+                            fontWeight = FontWeight.Bold,
+                            color = PixelGold,
+                            fontSize = (15 * selectedFontScale.scale).sp
+                        )
+                    }
+
+                    // BGM Switch
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Nhạc Nền Đa Âm Sắc (Retro BGM)", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text(
+                                "Nhạc nền 8-bit đa bè polyphonic thay đổi sống động theo từng Ải.",
+                                color = Color.White.copy(alpha = 0.6f),
+                                fontSize = 11.sp
+                            )
+                        }
+                        Switch(
+                            checked = !uiState.bgmMuted,
+                            onCheckedChange = { viewModel.toggleBgmMute() },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = NeonCyan,
+                                checkedTrackColor = NeonCyan.copy(alpha = 0.5f)
+                            )
+                        )
+                    }
+
+                    // SFX Switch
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Hiệu Ứng Âm Thanh (SFX)", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                            Text(
+                                "Âm thanh chém quái, nhặt ngọc, sét đánh, gầm boss.",
+                                color = Color.White.copy(alpha = 0.6f),
+                                fontSize = 11.sp
+                            )
+                        }
+                        Switch(
+                            checked = !uiState.soundMuted,
+                            onCheckedChange = { viewModel.toggleMute() },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = PixelGold,
+                                checkedTrackColor = PixelGold.copy(alpha = 0.5f)
+                            )
+                        )
+                    }
+                }
+            }
+
+            // 2. ACCESSIBILITY & COLORBLIND SECTION
+            Card(
+                colors = CardDefaults.cardColors(containerColor = SurfaceDark),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Text("🎨", fontSize = 20.sp)
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(

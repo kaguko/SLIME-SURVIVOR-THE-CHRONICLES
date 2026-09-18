@@ -35,7 +35,7 @@ enum class GameStage(
         bossType = EnemyType.OLD_TREE_ENT_BOSS,
         goldMultiplier = 1.0f,
         xpMultiplier = 1.0f,
-        bannerRes = R.drawable.img_game_hero_1789657413633
+        bannerRes = R.drawable.img_stage_forest_1789704802369
     ),
     MAGMA_CORE(
         id = "magma",

@@ -144,7 +144,13 @@ class GameEngine(private val soundFx: SoundFxSynth) {
             fireOrbCount = fireCount,
             canRevive = canRevive
         )
-        soundFx.startBgm()
+        val stageTrack = when (stage) {
+            GameStage.ENCHANTED_FOREST -> com.example.game.audio.BgmTrack.FOREST
+            GameStage.MAGMA_CORE -> com.example.game.audio.BgmTrack.MAGMA
+            GameStage.GLACIAL_FROST -> com.example.game.audio.BgmTrack.FROST
+            GameStage.GOLDEN_TOMB -> com.example.game.audio.BgmTrack.TOMB
+        }
+        soundFx.setBgmTrack(stageTrack)
     }
 
     fun resetGame(
@@ -174,7 +180,13 @@ class GameEngine(private val soundFx: SoundFxSynth) {
             fireOrbCount = initialFireCount,
             canRevive = true
         )
-        soundFx.startBgm()
+        val stageTrack = when (stage) {
+            GameStage.ENCHANTED_FOREST -> com.example.game.audio.BgmTrack.FOREST
+            GameStage.MAGMA_CORE -> com.example.game.audio.BgmTrack.MAGMA
+            GameStage.GLACIAL_FROST -> com.example.game.audio.BgmTrack.FROST
+            GameStage.GOLDEN_TOMB -> com.example.game.audio.BgmTrack.TOMB
+        }
+        soundFx.setBgmTrack(stageTrack)
     }
 
     fun setMovementInput(dx: Float, dy: Float) {
@@ -201,6 +213,7 @@ class GameEngine(private val soundFx: SoundFxSynth) {
 
         if (isVictorious && !cur.isVictory) {
             soundFx.playLevelUp()
+            soundFx.setBgmTrack(com.example.game.audio.BgmTrack.VICTORY)
             _state.update { it.copy(isVictory = true, isGameOver = false) }
             return
         }
@@ -269,6 +282,7 @@ class GameEngine(private val soundFx: SoundFxSynth) {
         if (newTimeSurvived >= 240f && !bossSpawned) {
             bossSpawned = true
             soundFx.playBossRoar()
+            soundFx.setBgmTrack(com.example.game.audio.BgmTrack.BOSS)
             val bossType = cur.selectedStage.bossType
             val boss = Enemy(
                 id = enemyIdSeq++,
@@ -629,7 +643,7 @@ class GameEngine(private val soundFx: SoundFxSynth) {
                 screenShakeIntensity = 12f
             } else {
                 isGameOver = true
-                soundFx.stopBgm()
+                soundFx.setBgmTrack(com.example.game.audio.BgmTrack.GAME_OVER)
             }
         }
 
@@ -700,7 +714,14 @@ class GameEngine(private val soundFx: SoundFxSynth) {
 
     fun revivePlayer() {
         soundFx.playRevive()
-        soundFx.startBgm()
+        val stage = _state.value.selectedStage
+        val stageTrack = when (stage) {
+            GameStage.ENCHANTED_FOREST -> com.example.game.audio.BgmTrack.FOREST
+            GameStage.MAGMA_CORE -> com.example.game.audio.BgmTrack.MAGMA
+            GameStage.GLACIAL_FROST -> com.example.game.audio.BgmTrack.FROST
+            GameStage.GOLDEN_TOMB -> com.example.game.audio.BgmTrack.TOMB
+        }
+        soundFx.setBgmTrack(if (bossSpawned) com.example.game.audio.BgmTrack.BOSS else stageTrack)
         _state.update {
             it.copy(
                 playerHp = it.playerMaxHp * 0.7f,
